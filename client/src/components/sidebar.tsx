@@ -1,6 +1,7 @@
 import { Link, useLocation } from "wouter";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
+import { type User } from "@shared/schema";
 import {
   Share2,
   LayoutDashboard,
@@ -27,7 +28,7 @@ const navigation = [
 
 export default function Sidebar() {
   const [location] = useLocation();
-  const { user } = useAuth();
+  const { user } = useAuth() as { user: User | null };
 
   const handleLogout = () => {
     window.location.href = "/api/logout";

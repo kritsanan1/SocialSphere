@@ -9,7 +9,7 @@ export default function Analytics() {
   const [timeRange, setTimeRange] = useState("30");
   
   const { data: analytics, isLoading } = useQuery({
-    queryKey: ["/api/analytics/summary", { days: timeRange }],
+    queryKey: [`/api/analytics/summary?days=${timeRange}`],
   });
 
   const { data: dashboardStats } = useQuery({
@@ -17,22 +17,22 @@ export default function Analytics() {
   });
 
   const calculateTotalEngagement = () => {
-    if (!analytics || analytics.length === 0) return 0;
-    return analytics.reduce((total: number, platform: any) => 
+    if (!analytics || (analytics as any[]).length === 0) return 0;
+    return (analytics as any[]).reduce((total: number, platform: any) => 
       total + (platform.totalLikes || 0) + (platform.totalShares || 0) + (platform.totalComments || 0), 0
     );
   };
 
   const calculateTotalReach = () => {
-    if (!analytics || analytics.length === 0) return 0;
-    return analytics.reduce((total: number, platform: any) => 
+    if (!analytics || (analytics as any[]).length === 0) return 0;
+    return (analytics as any[]).reduce((total: number, platform: any) => 
       total + (platform.totalReach || 0), 0
     );
   };
 
   const calculateTotalImpressions = () => {
-    if (!analytics || analytics.length === 0) return 0;
-    return analytics.reduce((total: number, platform: any) => 
+    if (!analytics || (analytics as any[]).length === 0) return 0;
+    return (analytics as any[]).reduce((total: number, platform: any) => 
       total + (platform.totalImpressions || 0), 0
     );
   };
@@ -182,8 +182,8 @@ export default function Analytics() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {analytics && analytics.length > 0 ? (
-                    analytics.map((platform: any, index: number) => {
+                  {analytics && (analytics as any[]).length > 0 ? (
+                    (analytics as any[]).map((platform: any, index: number) => {
                       const totalEngagement = (platform.totalLikes || 0) + (platform.totalShares || 0) + (platform.totalComments || 0);
                       const engagementPercentage = calculateTotalEngagement() > 0 
                         ? Math.round((totalEngagement / calculateTotalEngagement()) * 100)

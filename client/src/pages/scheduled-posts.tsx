@@ -32,7 +32,7 @@ export default function ScheduledPosts() {
     }
   }, [isAuthenticated, isLoading, toast]);
 
-  const { data: scheduledPosts, isLoading: postsLoading } = useQuery({
+  const { data: scheduledPosts = [], isLoading: postsLoading } = useQuery({
     queryKey: ["/api/scheduled-posts"],
     enabled: isAuthenticated,
   });

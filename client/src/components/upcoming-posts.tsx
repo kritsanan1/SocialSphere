@@ -3,8 +3,16 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 
+interface ScheduledPost {
+  id: string;
+  title: string;
+  body: string;
+  platforms: string[];
+  scheduledTime: string;
+}
+
 export default function UpcomingPosts() {
-  const { data: scheduledPosts, isLoading } = useQuery({
+  const { data: scheduledPosts = [], isLoading } = useQuery<ScheduledPost[]>({
     queryKey: ["/api/scheduled-posts"],
     select: (data) => data?.slice(0, 3), // Only show first 3
   });

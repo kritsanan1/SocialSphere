@@ -33,7 +33,7 @@ export default function MediaLibrary() {
     }
   }, [isAuthenticated, isLoading, toast]);
 
-  const { data: media, isLoading: mediaLoading } = useQuery({
+  const { data: media = [], isLoading: mediaLoading } = useQuery({
     queryKey: ["/api/media"],
     enabled: isAuthenticated,
   });

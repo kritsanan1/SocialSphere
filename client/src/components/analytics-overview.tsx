@@ -7,8 +7,8 @@ import { useState } from "react";
 export default function AnalyticsOverview() {
   const [timeRange, setTimeRange] = useState("7");
   
-  const { data: analytics, isLoading } = useQuery({
-    queryKey: ["/api/analytics/summary", { days: timeRange }],
+  const { data: analytics = [], isLoading } = useQuery({
+    queryKey: [`/api/analytics/summary?days=${timeRange}`],
   });
 
   if (isLoading) {

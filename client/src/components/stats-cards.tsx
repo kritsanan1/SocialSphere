@@ -2,8 +2,15 @@ import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent } from "@/components/ui/card";
 import { NotebookPen, Heart, Clock, Link as LinkIcon } from "lucide-react";
 
+interface DashboardStats {
+  totalPosts: number;
+  totalEngagement: number;
+  scheduledPosts: number;
+  platformBreakdown: Array<{ platform: string; postCount: number; engagement: number }>;
+}
+
 export default function StatsCards() {
-  const { data: stats, isLoading } = useQuery({
+  const { data: stats, isLoading } = useQuery<DashboardStats>({
     queryKey: ["/api/dashboard/stats"],
     refetchInterval: 30000, // Refresh every 30 seconds
   });

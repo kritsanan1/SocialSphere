@@ -32,7 +32,7 @@ export default function PostHistory() {
     }
   }, [isAuthenticated, isLoading, toast]);
 
-  const { data: postHistory, isLoading: historyLoading } = useQuery({
+  const { data: postHistory = [], isLoading: historyLoading } = useQuery({
     queryKey: ["/api/post-history"],
     enabled: isAuthenticated,
   });

@@ -3,8 +3,19 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Check, Clock, Heart, Upload, AlertTriangle } from "lucide-react";
 
+interface PostHistory {
+  id: string;
+  platform: string;
+  status: string;
+  postedAt: string;
+  content: {
+    title: string;
+    body: string;
+  };
+}
+
 export default function RecentActivity() {
-  const { data: activities, isLoading } = useQuery({
+  const { data: activities = [], isLoading } = useQuery<PostHistory[]>({
     queryKey: ["/api/post-history"],
     select: (data) => data?.slice(0, 5), // Only show latest 5 activities
   });

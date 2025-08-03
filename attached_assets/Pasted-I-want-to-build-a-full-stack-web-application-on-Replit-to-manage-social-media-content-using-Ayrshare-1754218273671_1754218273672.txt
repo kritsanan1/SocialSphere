@@ -1,0 +1,69 @@
+I want to build a full-stack web application on Replit to manage social media content using Ayrshare APIs. The app should allow users to create, schedule, and analyze posts across multiple platforms (Twitter, Facebook, Instagram, LinkedIn, TikTok), manage media uploads (images/videos), and handle multiple user profiles using Ayrshare’s Profile Key. Use the following specifications and leverage Replit’s advanced AI features (Extended Thinking, High-Power Models, Checkpoints, Rollback) to ensure a robust, production-ready app.
+
+### App Details
+- **Name**: SocialSync
+- **Purpose**: A web app for managing social media content, enabling users to create posts, schedule them, upload media, view post history, and analyze engagement metrics using Ayrshare APIs.
+- **Tech Stack**:
+  - **Frontend**: React with TypeScript, Tailwind CSS for responsive design (mobile and desktop).
+  - **Backend**: Node.js with Express.js for API handling.
+  - **Database**: Replit Database (ReplDB) to store user preferences and draft posts.
+  - **Authentication**: Use replAuth for user login and Ayrshare Profile Keys for multi-user management.
+  - **Third-Party Service**: Ayrshare API (REST) for social media interactions. Use the Ayrshare Node.js SDK if available.
+- **Core Features**:
+  1. **User Authentication**: Implement replAuth for secure user login.
+  2. **Post Creation**: Form to input post content, select platforms, and attach media URLs.
+  3. **Post Scheduling**: Allow users to set a date and time for posts using Ayrshare’s scheduling API.
+  4. **Media Management**: Support uploading images/videos to Ayrshare and associating them with posts.
+  5. **Profile Management**: Allow users to input Ayrshare Profile Keys to manage multiple social media accounts.
+  6. **Post History**: Display a list of past posts with status and links to view on platforms.
+  7. **Analytics Dashboard**: Fetch and display engagement metrics (likes, shares, comments) using Ayrshare’s analytics API.
+- **UI/UX Requirements**:
+  - Responsive design with a clean, modern look using Tailwind CSS.
+  - Color palette: Blue (#1E40AF), White (#FFFFFF), Gray (#F3F4F6).
+  - Font: Inter (Google Fonts), sizes: 16px for body, 24px for headings.
+  - Include a sidebar for navigation and a dashboard for post management.
+- **Architecture**:
+  - Modular structure with separate folders for frontend (`/src`), backend (`/server`), and utilities.
+  - Use RESTful API endpoints in Express.js (e.g., `/api/post`, `/api/history`, `/api/analytics`).
+  - Store draft posts and user settings in ReplDB.
+- **Third-Party Integration**:
+  - Ayrshare API endpoints: `/post`, `/history`, `/media/upload`, `/analytics`, `/user`.
+  - API Key: [Replace with your Ayrshare API Key].
+  - Profile Key support for multi-user management (optional for Business Plan users).
+- **Development Process**:
+  - **Step-by-Step Development**:
+    1. Set up the project structure with React, TypeScript, Express.js, and ReplDB.
+    2. Implement replAuth for user authentication.
+    3. Create backend API routes to interact with Ayrshare APIs.
+    4. Build the frontend with forms for post creation, scheduling, and media upload.
+    5. Add components for post history and analytics dashboard.
+    6. Test and refine UI for responsiveness.
+  - **Replit Advanced Features**:
+    - Enable **Extended Thinking** to analyze architectural decisions (e.g., optimal API call structure, error handling).
+    - Use **High-Power Models** for complex tasks like integrating Ayrshare’s analytics API or optimizing frontend performance.
+    - Create **Checkpoints** after each major feature (e.g., after setting up authentication, post creation, etc.) to save progress.
+    - Use **Rollback** if a feature implementation fails (e.g., if an API integration breaks the app).
+  - **Error Handling**:
+    - Provide clear error messages for failed API calls (e.g., invalid API Key, rate limits).
+    - Log errors in the Replit console and display user-friendly messages in the UI.
+  - **Testing**:
+    - Test each feature incrementally using Replit’s console.
+    - Use Replit’s deployment options (Autoscale) to test the app in a live environment.
+- **Prompting Guidelines**:
+  - Break tasks into smaller steps and prompt Replit Agent for each (e.g., “Set up Express.js routes for Ayrshare /post endpoint”).
+  - Provide specific feedback if the AI’s output needs refinement (e.g., “Fix the API call to include Profile Key in headers”).
+  - Use natural language but be precise about requirements (e.g., “Use Tailwind CSS to style a responsive form with a blue button”).
+  - If errors occur, include error messages in follow-up prompts (e.g., “I’m getting ‘401 Unauthorized’ from Ayrshare. Fix the API Key authentication”).
+- **Deliverables**:
+  - A fully functional Replit App with all specified features.
+  - A deployed version using Replit’s Autoscale deployment.
+  - A GitHub repository export for version control.
+- **Constraints**:
+  - Ensure compatibility with Replit’s free tier (limited to 3 apps, 10 checkpoints for free users).
+  - Optimize API calls to stay within Ayrshare’s rate limits (check Ayrshare documentation).
+- **Next Steps**:
+  - Present an implementation plan with estimated timelines for each feature.
+  - Start building after I approve the plan.
+  - Notify me at each checkpoint and allow me to review changes before proceeding.
+
+Please propose an implementation plan, including timelines and tasks, and wait for my approval before starting. Use Extended Thinking to evaluate the best approach for integrating Ayrshare APIs and High-Power Models for complex tasks like analytics. Save a Checkpoint after each major feature and use Rollback if needed.[](https://docs.replit.com/replitai/agent)

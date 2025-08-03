@@ -210,7 +210,12 @@ export class DatabaseStorage implements IStorage {
     const dateThreshold = new Date();
     dateThreshold.setDate(dateThreshold.getDate() - days);
 
-    let query = db
+    const whereConditions = [gte(analytics.updatedAt, dateThreshold)];
+    if (userId) {
+      whereConditions.push(eq(content.createdBy, userId));
+    }
+
+    const query = db
       .select({
         platform: socialPosts.platform,
         totalLikes: sql<number>`sum(${analytics.likes})`,
@@ -224,12 +229,8 @@ export class DatabaseStorage implements IStorage {
       .from(analytics)
       .leftJoin(socialPosts, eq(analytics.socialPostId, socialPosts.id))
       .leftJoin(content, eq(socialPosts.contentId, content.id))
-      .where(gte(analytics.updatedAt, dateThreshold))
+      .where(and(...whereConditions))
       .groupBy(socialPosts.platform);
-
-    if (userId) {
-      query = query.where(eq(content.createdBy, userId)) as any;
-    }
 
     return await query;
   }
@@ -270,40 +271,49 @@ export class DatabaseStorage implements IStorage {
     dateThreshold.setDate(dateThreshold.getDate() - 30);
 
     // Get total posts
-    let totalPostsQuery = db
-      .select({ count: sql<number>`count(*)` })
-      .from(content);
-    
+    const totalPostsConditions = [];
     if (userId) {
-      totalPostsQuery = totalPostsQuery.where(eq(content.createdBy, userId)) as any;
+      totalPostsConditions.push(eq(content.createdBy, userId));
     }
+    
+    const totalPostsQuery = db
+      .select({ count: sql<number>`count(*)` })
+      .from(content)
+      .where(totalPostsConditions.length > 0 ? and(...totalPostsConditions) : undefined);
 
     // Get total engagement
-    let totalEngagementQuery = db
+    const engagementConditions = [gte(analytics.updatedAt, dateThreshold)];
+    if (userId) {
+      engagementConditions.push(eq(content.createdBy, userId));
+    }
+
+    const totalEngagementQuery = db
       .select({
         totalEngagement: sql<number>`sum(${analytics.likes} + ${analytics.shares} + ${analytics.comments})`,
       })
       .from(analytics)
       .leftJoin(socialPosts, eq(analytics.socialPostId, socialPosts.id))
       .leftJoin(content, eq(socialPosts.contentId, content.id))
-      .where(gte(analytics.updatedAt, dateThreshold));
-
-    if (userId) {
-      totalEngagementQuery = totalEngagementQuery.where(eq(content.createdBy, userId)) as any;
-    }
+      .where(and(...engagementConditions));
 
     // Get scheduled posts count
-    let scheduledPostsQuery = db
-      .select({ count: sql<number>`count(*)` })
-      .from(content)
-      .where(eq(content.status, 'scheduled'));
-
+    const scheduledConditions = [eq(content.status, 'scheduled')];
     if (userId) {
-      scheduledPostsQuery = scheduledPostsQuery.where(eq(content.createdBy, userId)) as any;
+      scheduledConditions.push(eq(content.createdBy, userId));
     }
 
+    const scheduledPostsQuery = db
+      .select({ count: sql<number>`count(*)` })
+      .from(content)
+      .where(and(...scheduledConditions));
+
     // Get platform breakdown
-    let platformBreakdownQuery = db
+    const platformConditions = [gte(socialPosts.createdAt, dateThreshold)];
+    if (userId) {
+      platformConditions.push(eq(content.createdBy, userId));
+    }
+
+    const platformBreakdownQuery = db
       .select({
         platform: socialPosts.platform,
         postCount: sql<number>`count(*)`,
@@ -312,12 +322,8 @@ export class DatabaseStorage implements IStorage {
       .from(socialPosts)
       .leftJoin(analytics, eq(socialPosts.id, analytics.socialPostId))
       .leftJoin(content, eq(socialPosts.contentId, content.id))
-      .where(gte(socialPosts.createdAt, dateThreshold))
+      .where(and(...platformConditions))
       .groupBy(socialPosts.platform);
-
-    if (userId) {
-      platformBreakdownQuery = platformBreakdownQuery.where(eq(content.createdBy, userId)) as any;
-    }
 
     const [totalPosts] = await totalPostsQuery;
     const [totalEngagement] = await totalEngagementQuery;

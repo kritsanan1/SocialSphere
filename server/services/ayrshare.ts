@@ -29,7 +29,7 @@ export class AyrshareService {
   }
 
   private getHeaders(): Record<string, string> {
-    const headers = {
+    const headers: Record<string, string> = {
       'Authorization': `Bearer ${this.apiKey}`,
       'Content-Type': 'application/json',
       'Accept-Encoding': 'deflate, gzip, br',
