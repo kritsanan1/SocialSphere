@@ -11,9 +11,11 @@ import { Button } from "@/components/ui/button";
 import { Plus, Bell } from "lucide-react";
 import { Link } from "wouter";
 
+import EnhancedDashboard from "@/components/enhanced-ui/enhanced-dashboard";
+
 export default function Dashboard() {
-  const { toast } = useToast();
   const { isAuthenticated, isLoading } = useAuth();
+  const { toast } = useToast();
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
@@ -31,18 +33,21 @@ export default function Dashboard() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin w-8 h-8 border-4 border-primary border-r-transparent rounded-full mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading dashboard...</p>
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 flex items-center justify-center">
+        <div className="text-center space-y-4">
+          <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full animate-spin mx-auto flex items-center justify-center">
+            <div className="w-8 h-8 bg-white rounded-full"></div>
+          </div>
+          <div>
+            <p className="text-lg font-medium text-gray-700">Loading your dashboard...</p>
+            <p className="text-sm text-gray-500">Please wait while we prepare everything</p>
+          </div>
         </div>
       </div>
     );
   }
 
-  if (!isAuthenticated) {
-    return null;
-  }
+  return <EnhancedDashboard />;
 
   return (
     <div className="flex h-screen bg-gray-50">
