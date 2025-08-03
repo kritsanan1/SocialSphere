@@ -1,0 +1,50 @@
+Create a comprehensive social media content management system with the following specifications:
+
+**Core Requirements:**
+1. Full-stack web application using React frontend and Flask backend
+2. Integration with Ayrshare APIs for 13 social media platforms (Facebook, Instagram, LinkedIn, X/Twitter, TikTok, YouTube, Pinterest, Reddit, Snapchat, Telegram, Threads, Bluesky, Google Business)
+3. User authentication and role-based access control (Admin, Editor, Viewer)
+4. Content creation, scheduling, and analytics dashboard
+5. Media library for image/video management
+6. Responsive design with modern UI/UX
+
+**Technical Stack:**
+- Frontend: React 18+ with Tailwind CSS
+- Backend: Flask with SQLAlchemy ORM
+- Database: SQLite (development) / PostgreSQL (production)
+- Authentication: JWT tokens
+- API Integration: Ayrshare REST APIs
+- Deployment: Replit hosting
+
+**Key Features to Implement:**
+1. Dashboard with analytics widgets and quick actions
+2. Content editor with rich text and media upload
+3. Social media platform selector with visual toggles
+4. Scheduling system with calendar view
+5. Analytics page with charts and performance metrics
+6. User management with role assignments
+7. Settings page for API configuration
+8. Media library with drag-and-drop upload
+
+**Database Schema:**
+- Users (id, username, email, password_hash, role, created_at)
+- Content (id, title, body, media_urls, platforms, status, scheduled_time, created_by, created_at)
+- Social_Posts (id, content_id, platform, post_id, status, posted_at)
+- Analytics (id, social_post_id, likes, shares, comments, reach, updated_at)
+- Media (id, filename, url, file_type, size, uploaded_by, created_at)
+
+**Security Requirements:**
+- Input validation and sanitization
+- CORS configuration
+- Rate limiting
+- Secure API key storage in environment variables
+- Password hashing with bcrypt
+
+**Performance Optimizations:**
+- React Query for server state management
+- Image optimization and lazy loading
+- Database indexing
+- API response caching
+- Code splitting and bundle optimization
+
+Create the initial project structure and implement the core authentication flow first.
